@@ -34,7 +34,7 @@ console.log(euro.unformat("(€ 12 345,68)", { negative: "paren" }));
 
 ### Options
 
-When creating a ziffer formatter you can pass any of theses options in an optional object. Theses will be the defaults to subsequent `.format()` calls. You can also set an individual option in a specific call by passing a second options argument as seen above.
+When creating a ziffer formatter you can pass any of these options in an optional object. These will be the defaults to subsequent `.format()` calls. You can also set an individual option in a specific call by passing a second options argument as seen above.
 
 **List of Options**
 
