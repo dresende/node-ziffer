@@ -65,3 +65,22 @@ const euro   = ziffer({
 console.log(euro.format(-123));
 // notice how parenthesis are place in between
 ```
+
+### Advanced
+
+#### Group
+
+Integer digit grouping can also be configured using a list of group sizes instead of a single number. This allows, for example, to group digits the way Hindi do.
+
+```js
+const ziffer = require("ziffer");
+const hindi  = ziffer({
+    decimal   : ".",
+    thousands : ",",
+    group     : [ 3, 2 ],
+    decimals  : 2
+});
+
+// prints 12,34,56,789.00
+console.log(hindi.format(123456789));
+```

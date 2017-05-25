@@ -16,4 +16,10 @@ describe("Option: group", () => {
 		// still preserves default
 		ziffer.format(123456789).should.equal("123 456 789");
 	});
+
+	it("Should accept an array of sizes", () => {
+		ziffer.format(123456789, { group: [ 3 ] }).should.equal("123 456 789");
+		ziffer.format(123456789, { group: [ 3, 2 ] }).should.equal("12 34 56 789");
+		ziffer.format(123456789, { group: [ 2, 1, 3 ] }).should.equal("123 456 7 89");
+	});
 });
