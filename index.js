@@ -148,7 +148,7 @@ class Formatter {
 	__unformat_negative(options, formatted) {
 		if (options.negative === "paren") {
 			if (formatted[0] === "(" && formatted[formatted.length - 1] === ")") {
-				return [ formatted = formatted.substr(1, formatted.length - 2), true ];
+				return [ formatted.substr(1, formatted.length - 2), true ];
 			}
 		} else if (options.negative === "right") {
 			if (formatted[formatted.length - 1] === "-") {
