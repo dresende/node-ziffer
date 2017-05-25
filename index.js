@@ -48,9 +48,8 @@ class Formatter {
 
 	 **/
 	format(number = 0, additional_options = {}) {
-		let options   = merge(this.options, additional_options);
-		let negative  = (number < 0);
-		let formatted = "";
+		let options  = merge(this.options, additional_options);
+		let negative = (number < 0);
 		let integer, decimal;
 
 		if (options.decimals !== -1) {
@@ -61,37 +60,7 @@ class Formatter {
 			decimal = ("" + Math.abs(number)).substr(integer.length + 1);
 		}
 
-		if (options.thousands.length && ((Array.isArray(options.group) && options.group.length) || options.group > 0)) {
-			if (!Array.isArray(options.group)) {
-				options.group = [ options.group ];
-			}
-
-			let g    = 0;
-			let from = integer.length - options.group[g];
-
-			for (let i = integer.length - 1; i >= 0; i -= options.group[g]) {
-				formatted = (from >= 0
-				          ? integer.substr(from, options.group[g])
-				          : integer.substr(0, options.group[g] + from))
-				          + formatted;
-
-				if (from > 0 && options.thousands.length) {
-					formatted = options.thousands + formatted;
-				}
-
-				if (g < options.group.length - 1) {
-					g += 1;
-				}
-
-				from -= options.group[g];
-			}
-		} else  {
-			formatted = integer;
-		}
-
-		if (options.decimals !== 0 && decimal.length) {
-			formatted += options.decimal + decimal;
-		}
+		let formatted = this.__format_decimals(options, integer, decimal);
 
 		formatted = options.inprefix + formatted + options.insuffix;
 
@@ -180,6 +149,44 @@ class Formatter {
 
 		if (options.digits && options.digits.length === 10) {
 			formatted = formatted.replace(new RegExp("[" + options.digits + "]", "g"), (c) => options.digits.indexOf(c));
+		}
+
+		return formatted;
+	}
+
+	__format_decimals(options, integer, decimal) {
+		let formatted = "";
+
+		if (options.thousands.length && ((Array.isArray(options.group) && options.group.length) || options.group > 0)) {
+			if (!Array.isArray(options.group)) {
+				options.group = [ options.group ];
+			}
+
+			let g         = 0;
+			let from      = integer.length - options.group[g];
+
+			for (let i = integer.length - 1; i >= 0; i -= options.group[g]) {
+				formatted = (from >= 0
+				          ? integer.substr(from, options.group[g])
+				          : integer.substr(0, options.group[g] + from))
+				          + formatted;
+
+				if (from > 0 && options.thousands.length) {
+					formatted = options.thousands + formatted;
+				}
+
+				if (g < options.group.length - 1) {
+					g += 1;
+				}
+
+				from -= options.group[g];
+			}
+		} else  {
+			formatted = integer;
+		}
+
+		if (options.decimals !== 0 && decimal.length) {
+			formatted += options.decimal + decimal;
 		}
 
 		return formatted;
