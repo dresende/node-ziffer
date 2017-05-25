@@ -140,7 +140,7 @@ class Formatter {
 		if (options.thousands.length) {
 			formatted = formatted.split(options.thousands);
 
-			if (options.radix.length && options.radix == options.thousands) {
+			if (options.radix.length && options.radix == options.thousands && options.decimals != 0) {
 				formatted = formatted.slice(0, formatted.length - 1).join("") + options.radix + formatted[formatted.length - 1];
 			} else {
 				formatted = formatted.join("");
@@ -162,6 +162,7 @@ class Formatter {
 		if (options.decimals == -1) {
 			return formatted;
 		}
+
 		return +(formatted.toFixed(options.decimals));
 	}
 }
