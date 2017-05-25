@@ -1,7 +1,7 @@
 const should = require("should");
 const ziffer = require("..");
 
-describe("Option: radix", () => {
+describe("Option: decimal", () => {
 	it("Should default to comma", () => {
 		const n = ziffer();
 
@@ -9,7 +9,7 @@ describe("Option: radix", () => {
 	});
 
 	it("Should accept any string", () => {
-		const n = ziffer({ radix: ";;" });
+		const n = ziffer({ decimal: ";;" });
 
 		n.format(1.23456).should.equal("1;;23456");
 		n.format(1.234).should.equal("1;;234");
@@ -17,10 +17,10 @@ describe("Option: radix", () => {
 	});
 
 	it("Should allow a one-time change", () => {
-		const n = ziffer({ radix: ";;" });
+		const n = ziffer({ decimal: ";;" });
 
 		n.format(1.23456).should.equal("1;;23456");
-		n.format(1.23456, { radix: "." }).should.equal("1.23456");
+		n.format(1.23456, { decimal: "." }).should.equal("1.23456");
 		n.format(1.23456).should.equal("1;;23456");
 	});
 });

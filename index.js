@@ -7,7 +7,7 @@ module.exports = (options) => {
 class Formatter {
 	constructor(options = {}) {
 		this.options = merge({
-			radix     : ",",
+			decimal   : ",",
 			thousands : " ",
 			inprefix  : "",
 			insuffix  : "",
@@ -27,7 +27,7 @@ class Formatter {
 	- (<negative>)?
 	- <inprefix>
 	- (<number:group><thousands>)*<number:group>
-	- (<radix><number:decimals>)?
+	- (<decimal><number:decimals>)?
 	- <insuffix>
 	- (<negative>)?
 	- <outsuffix>
@@ -38,7 +38,7 @@ class Formatter {
 	   - else if option negative is left, add minus
 	3. option inprefix string
 	4. for every integer part in option group blocks, add option thousands string separator
-	5. if decimals add option radix string and decimals
+	5. if decimals add option decimal string and decimals
 	6. option insuffix string
 	7. if number is negative and:
 	   - if option negative is paren, add open parenthesis
@@ -76,7 +76,7 @@ class Formatter {
 		}
 
 		if (options.decimals != 0 && decimal.length) {
-			formatted += options.radix + decimal;
+			formatted += options.decimal + decimal;
 		}
 
 		formatted = options.inprefix + formatted + options.insuffix;
@@ -140,15 +140,15 @@ class Formatter {
 		if (options.thousands.length) {
 			formatted = formatted.split(options.thousands);
 
-			if (options.radix.length && options.radix == options.thousands && options.decimals != 0) {
-				formatted = formatted.slice(0, formatted.length - 1).join("") + options.radix + formatted[formatted.length - 1];
+			if (options.decimal.length && options.decimal == options.thousands && options.decimals != 0) {
+				formatted = formatted.slice(0, formatted.length - 1).join("") + options.decimal + formatted[formatted.length - 1];
 			} else {
 				formatted = formatted.join("");
 			}
 		}
 
-		if (options.radix.length) {
-			formatted = formatted.replace(options.radix, ".");
+		if (options.decimal.length) {
+			formatted = formatted.replace(options.decimal, ".");
 		}
 
 		formatted = parseFloat(formatted, 10);

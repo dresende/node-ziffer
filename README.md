@@ -22,7 +22,7 @@ const euro   = ziffer({ inprefix: "€ ", decimals: 2 });
 console.log(euro.format(12345.678));
 
 // prints "-€ 12_345::7"
-console.log(euro.format(-12345.678, { decimals: 1, thousands: "_", radix: "::" }));
+console.log(euro.format(-12345.678, { decimals: 1, thousands: "_", decimal: "::" }));
 
 // prints "(€ 12 345,68)"
 console.log(euro.format(-12345.678, { negative: "paren" }));
@@ -37,7 +37,7 @@ When creating a ziffer formatter you can pass any of theses options in an option
 
 **List of Options**
 
-- `radix`: separator between integer and fraction (default: comma)
+- `decimal`: separator between integer and fraction (default: comma)
 - `thousands`: separator between integer groups (default: space)
 - `outprefix`: string prefix (default: none)
 - `inprefix`: string prefix (default: none)
