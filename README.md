@@ -1,5 +1,9 @@
 ## Ziffer
 
+[![Build Status](https://secure.travis-ci.org/dresende/node-ziffer.png?branch=master)](http://travis-ci.org/dresende/node-ziffer)
+[![](https://badge.fury.io/js/ziffer.svg)](https://npmjs.org/package/ziffer)
+[![](https://gemnasium.com/dresende/node-ziffer.png)](https://gemnasium.com/dresende/node-ziffer)
+
 NodeJS simple number formatter.
 
 ### Install
