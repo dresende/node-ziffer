@@ -89,16 +89,16 @@ class Formatter {
 			formatted = integer;
 		}
 
-		if (options.decimals != 0 && decimal.length) {
+		if (options.decimals !== 0 && decimal.length) {
 			formatted += options.decimal + decimal;
 		}
 
 		formatted = options.inprefix + formatted + options.insuffix;
 
 		if (negative) {
-			if (options.negative == "paren") {
+			if (options.negative === "paren") {
 				formatted = "(" + formatted + ")";
-			} else if (options.negative == "right") {
+			} else if (options.negative === "right") {
 				formatted += "-";
 			} else {
 				formatted = "-" + formatted;
@@ -107,7 +107,7 @@ class Formatter {
 
 		formatted = options.outprefix + formatted + options.outsuffix;
 
-		if (options.digits && options.digits.length == 10) {
+		if (options.digits && options.digits.length === 10) {
 			formatted = formatted.replace(/\d/g, (d) => options.digits[d]);
 		}
 
@@ -119,13 +119,13 @@ class Formatter {
 		let negative   = false;
 		let strip_left = (text) => {
 			if (!text.length) return;
-			if (formatted.substr(0, text.length) != text) return;
+			if (formatted.substr(0, text.length) !== text) return;
 
 			formatted = formatted.substr(text.length);
 		};
 		let strip_right = (text) => {
 			if (!text.length) return;
-			if (formatted.substr(formatted.length - text.length) != text) return;
+			if (formatted.substr(formatted.length - text.length) !== text) return;
 
 			formatted = formatted.substr(0, formatted.length - text.length);
 		};
@@ -135,18 +135,18 @@ class Formatter {
 		strip_left(options.outprefix);
 		strip_right(options.outsuffix);
 
-		if (options.negative == "paren") {
-			if (formatted[0] == "(" && formatted[formatted.length - 1] == ")") {
+		if (options.negative === "paren") {
+			if (formatted[0] === "(" && formatted[formatted.length - 1] === ")") {
 				formatted = formatted.substr(1, formatted.length - 2);
 				negative  = true;
 			}
-		} else if (options.negative == "right") {
-			if (formatted[formatted.length - 1] == "-") {
+		} else if (options.negative === "right") {
+			if (formatted[formatted.length - 1] === "-") {
 				formatted = formatted.substr(0, formatted.length - 1);
 				negative  = true;
 			}
 		} else {
-			if (formatted[0] == "-") {
+			if (formatted[0] === "-") {
 				formatted = formatted.substr(1);
 				negative  = true;
 			}
@@ -158,7 +158,7 @@ class Formatter {
 		if (options.thousands.length) {
 			formatted = formatted.split(options.thousands);
 
-			if (options.decimal.length && options.decimal == options.thousands && options.decimals != 0) {
+			if (options.decimal.length && options.decimal === options.thousands && options.decimals !== 0) {
 				formatted = formatted.slice(0, formatted.length - 1).join("") + options.decimal + formatted[formatted.length - 1];
 			} else {
 				formatted = formatted.join("");
@@ -169,7 +169,7 @@ class Formatter {
 			formatted = formatted.replace(options.decimal, ".");
 		}
 
-		if (options.digits && options.digits.length == 10) {
+		if (options.digits && options.digits.length === 10) {
 			formatted = formatted.replace(new RegExp("[" + options.digits + "]", "g"), (c) => options.digits.indexOf(c));
 		}
 
@@ -181,7 +181,7 @@ class Formatter {
 			formatted *= -1;
 		}
 
-		if (options.decimals == -1) {
+		if (options.decimals === -1) {
 			return formatted;
 		}
 
@@ -193,7 +193,7 @@ function merge(base, obj) {
 	var ret = {};
 
 	for (let k in base) {
-		if (typeof obj[k] != "undefined") continue;
+		if (typeof obj[k] !== "undefined") continue;
 
 		ret[k] = base[k];
 	}
