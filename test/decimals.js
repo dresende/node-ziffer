@@ -15,4 +15,10 @@ describe("Option: decimals", () => {
 		ziffer.format(1234.567, { decimals: 2 }).should.equal("1 234,57");
 		ziffer.format(1234.564, { decimals: 2 }).should.equal("1 234,56");
 	});
+
+	it("Should add zeros if decimals is above zero", () => {
+		ziffer.format(123, { decimals: 1 }).should.equal("123,0");
+		ziffer.format(123.45, { decimals: 5 }).should.equal("123,45000");
+		ziffer.format(123, { decimals: 10 }).should.equal("123,0000000000");
+	});
 });

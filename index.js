@@ -47,16 +47,18 @@ class Formatter {
 
 	 **/
 	format(number = 0, additional_options = {}) {
-		let options  = merge(this.options, additional_options);
-		let negative = (number < 0);
+		let options   = merge(this.options, additional_options);
+		let negative  = (number < 0);
+		let formatted = "";
+		let integer, decimal;
 
 		if (options.decimals != -1) {
-			number = number.toFixed(options.decimals);
+			number               = number.toFixed(options.decimals);
+			[ integer, decimal ] = number.split(".");
+		} else {
+			integer = "" + Math.floor(Math.abs(number));
+			decimal = ("" + Math.abs(number)).substr(integer.length + 1);
 		}
-
-		let integer   = "" + Math.floor(Math.abs(number));
-		let decimal   = ("" + Math.abs(number)).substr(integer.length + 1);
-		let formatted = "";
 
 		if (options.thousands.length && ((Array.isArray(options.group) && options.group.length) || options.group > 0)) {
 			if (!Array.isArray(options.group)) {
