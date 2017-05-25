@@ -58,17 +58,21 @@ class Formatter {
 		let decimal   = ("" + Math.abs(number)).substr(integer.length + 1);
 		let formatted = "";
 
-		for (let i = integer.length - 1; i >= 0; i -= options.blocksize) {
-			let from = i - options.blocksize + 1;
+		if (options.thousands.length) {
+			for (let i = integer.length - 1; i >= 0; i -= options.blocksize) {
+				let from = i - options.blocksize + 1;
 
-			formatted = (from >= 0
-			          ? integer.substr(from, options.blocksize)
-			          : integer.substr(0, options.blocksize + from))
-			          + formatted;
+				formatted = (from >= 0
+				          ? integer.substr(from, options.blocksize)
+				          : integer.substr(0, options.blocksize + from))
+				          + formatted;
 
-			if (from > 0 && options.thousands.length) {
-				formatted = options.thousands + formatted;
+				if (from > 0 && options.thousands.length) {
+					formatted = options.thousands + formatted;
+				}
 			}
+		} else {
+			formatted = integer;
 		}
 
 		if (options.decimals != 0 && decimal.length) {

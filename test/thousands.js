@@ -24,4 +24,10 @@ describe("Option: thousands", () => {
 		n.format(1234567, { thousands: "." }).should.equal("1.234.567");
 		n.format(1234567).should.equal("1,234,567");
 	});
+
+	it("Should support empty string", () => {
+		const n = ziffer({ thousands: "" });
+
+		n.format(1234567).should.equal("1234567");
+	});
 });
