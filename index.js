@@ -118,27 +118,52 @@ class Formatter {
 		let options    = merge(this.options, additional_options);
 		let negative   = false;
 
+		// strip out prefix/suffix
 		formatted = strip(formatted.trim(), options.outprefix, options.outsuffix);
 
+		// detect negative format
+		[ formatted, negative ] = this.__unformat_negative(options, formatted);
+
+		// strip in prefix/suffix
+		formatted = strip(formatted.trim(), options.inprefix, options.insuffix);
+
+		// strip thousands and convert digits
+		formatted = this.__unformat_decimals(options, formatted);
+
+		formatted = parseFloat(formatted, 10);
+
+		if (isNaN(formatted)) return null;
+
+		if (negative) {
+			formatted *= -1;
+		}
+
+		if (options.decimals === -1) {
+			return formatted;
+		}
+
+		return +(formatted.toFixed(options.decimals));
+	}
+
+	__unformat_negative(options, formatted) {
 		if (options.negative === "paren") {
 			if (formatted[0] === "(" && formatted[formatted.length - 1] === ")") {
-				formatted = formatted.substr(1, formatted.length - 2);
-				negative  = true;
+				return [ formatted = formatted.substr(1, formatted.length - 2), true ];
 			}
 		} else if (options.negative === "right") {
 			if (formatted[formatted.length - 1] === "-") {
-				formatted = formatted.substr(0, formatted.length - 1);
-				negative  = true;
+				return [ formatted.substr(0, formatted.length - 1), true ];
 			}
 		} else {
 			if (formatted[0] === "-") {
-				formatted = formatted.substr(1);
-				negative  = true;
+				return [ formatted.substr(1), true ];
 			}
 		}
 
-		formatted = strip(formatted.trim(), options.inprefix, options.insuffix);
+		return [ formatted, false ];
+	}
 
+	__unformat_decimals(options, formatted) {
 		if (options.thousands.length) {
 			formatted = formatted.split(options.thousands);
 
@@ -157,19 +182,7 @@ class Formatter {
 			formatted = formatted.replace(new RegExp("[" + options.digits + "]", "g"), (c) => options.digits.indexOf(c));
 		}
 
-		formatted = parseFloat(formatted, 10);
-
-		if (isNaN(formatted)) return null;
-
-		if (negative) {
-			formatted *= -1;
-		}
-
-		if (options.decimals === -1) {
-			return formatted;
-		}
-
-		return +(formatted.toFixed(options.decimals));
+		return formatted;
 	}
 }
 
