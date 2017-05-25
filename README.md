@@ -26,6 +26,9 @@ console.log(euro.format(-12345.678, { decimals: 1, thousands: "_", radix: "::" }
 
 // prints "(€ 12 345,68)"
 console.log(euro.format(-12345.678, { negative: "paren" }));
+
+// prints -12345.678
+console.log(euro.unformat("(€ 12 345,68)", { negative: "paren" }));
 ```
 
 ### Options

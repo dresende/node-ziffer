@@ -95,6 +95,71 @@ class Formatter {
 
 		return formatted;
 	}
+
+	unformat(formatted, additional_options = {}) {
+		let options    = merge(this.options, additional_options);
+		let negative   = false;
+		let strip_left = (text) => {
+			if (!text.length) return;
+			if (formatted.substr(0, text.length) != text) return;
+
+			formatted = formatted.substr(text.length);
+		};
+		let strip_right = (text) => {
+			if (!text.length) return;
+			if (formatted.substr(formatted.length - text.length) != text) return;
+
+			formatted = formatted.substr(0, formatted.length - text.length);
+		};
+
+		formatted = formatted.trim();
+
+		strip_left(options.outprefix);
+		strip_right(options.outsuffix);
+
+		if (options.negative == "paren") {
+			if (formatted[0] == "(" && formatted[formatted.length - 1] == ")") {
+				formatted = formatted.substr(1, formatted.length - 2);
+				negative  = true;
+			}
+		} else if (options.negative == "right") {
+			if (formatted[formatted.length - 1] == "-") {
+				formatted = formatted.substr(0, formatted.length - 1);
+				negative  = true;
+			}
+		} else {
+			if (formatted[0] == "-") {
+				formatted = formatted.substr(1);
+				negative  = true;
+			}
+		}
+
+		strip_left(options.inprefix);
+		strip_right(options.insuffix);
+
+		if (options.thousands.length) {
+			while (formatted.indexOf(options.thousands) >= 0) {
+				formatted = formatted.replace(options.thousands, "");
+			}
+		}
+
+		if (options.radix.length) {
+			formatted = formatted.replace(options.radix, ".");
+		}
+
+		formatted = parseFloat(formatted, 10);
+
+		if (isNaN(formatted)) return null;
+
+		if (negative) {
+			formatted *= -1;
+		}
+
+		if (options.decimals == -1) {
+			return formatted;
+		}
+		return +(formatted.toFixed(options.decimals));
+	}
 }
 
 function merge(base, obj) {
