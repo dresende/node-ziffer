@@ -38,13 +38,13 @@ When creating a ziffer formatter you can pass any of theses options in an option
 **List of Options**
 
 - `radix`: separator between integer and fraction (default: comma)
-- `thousands`: separator between integer blocks (default: space)
+- `thousands`: separator between integer groups (default: space)
 - `outprefix`: string prefix (default: none)
 - `inprefix`: string prefix (default: none)
 - `insuffix`: string suffix (default: none)
 - `outsuffix`: string suffix (default: none)
 - `negative`: how negative values are expressed - "left", "right" or parenthesis (default: left)
-- `blocksize`: size of digit blocks separated by `thousands` (default: 3)
+- `group`: size of digit groups separated by `thousands` (default: 3)
 - `decimals`: number of decimals in fraction to round to (default: no rounding)
 
 The reason there's an `in` and `out` prefix and suffix is because of how negative values are formatted. The negative characters (minus or parenthesis) are placed in between, which leaves you the opportunity to format any way you like.
