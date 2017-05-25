@@ -46,6 +46,7 @@ When creating a ziffer formatter you can pass any of theses options in an option
 - `negative`: how negative values are expressed - "left", "right" or parenthesis (default: left)
 - `group`: size of digit groups separated by `thousands` (default: 3)
 - `decimals`: number of decimals in fraction to round to (default: no rounding)
+- `digits`: a string with 10 digits from 0 to 9 (default: empty, which means 0-9)
 
 The reason there's an `in` and `out` prefix and suffix is because of how negative values are formatted. The negative characters (minus or parenthesis) are placed in between, which leaves you the opportunity to format any way you like.
 
@@ -83,4 +84,18 @@ const hindi  = ziffer({
 
 // prints 12,34,56,789.00
 console.log(hindi.format(123456789));
+```
+
+#### Digits
+
+For example, converting numbers to Arabic numeral can be done like the following:
+
+```js
+const ziffer = require("ziffer");
+const arab   = ziffer({
+    digits : "٠١٢٣٤٥٦٧٨٩"
+});
+
+// prints ١٥٩
+console.log(arab.format(159));
 ```

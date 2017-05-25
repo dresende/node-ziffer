@@ -15,7 +15,8 @@ class Formatter {
 			outsuffix : "",
 			negative  : "left",
 			group     : 3,
-			decimals  : -1
+			decimals  : -1,
+			digits    : null
 		}, options);
 	}
 
@@ -106,6 +107,10 @@ class Formatter {
 
 		formatted = options.outprefix + formatted + options.outsuffix;
 
+		if (options.digits && options.digits.length == 10) {
+			formatted = formatted.replace(/\d/g, (d) => options.digits[d]);
+		}
+
 		return formatted;
 	}
 
@@ -162,6 +167,10 @@ class Formatter {
 
 		if (options.decimal.length) {
 			formatted = formatted.replace(options.decimal, ".");
+		}
+
+		if (options.digits && options.digits.length == 10) {
+			formatted = formatted.replace(new RegExp("[" + options.digits + "]", "g"), (c) => options.digits.indexOf(c));
 		}
 
 		formatted = parseFloat(formatted, 10);
