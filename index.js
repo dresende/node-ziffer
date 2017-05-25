@@ -117,23 +117,8 @@ class Formatter {
 	unformat(formatted, additional_options = {}) {
 		let options    = merge(this.options, additional_options);
 		let negative   = false;
-		let strip_left = (text) => {
-			if (!text.length) return;
-			if (formatted.substr(0, text.length) !== text) return;
 
-			formatted = formatted.substr(text.length);
-		};
-		let strip_right = (text) => {
-			if (!text.length) return;
-			if (formatted.substr(formatted.length - text.length) !== text) return;
-
-			formatted = formatted.substr(0, formatted.length - text.length);
-		};
-
-		formatted = formatted.trim();
-
-		strip_left(options.outprefix);
-		strip_right(options.outsuffix);
+		formatted = strip(formatted.trim(), options.outprefix, options.outsuffix);
 
 		if (options.negative === "paren") {
 			if (formatted[0] === "(" && formatted[formatted.length - 1] === ")") {
@@ -152,8 +137,7 @@ class Formatter {
 			}
 		}
 
-		strip_left(options.inprefix);
-		strip_right(options.insuffix);
+		formatted = strip(formatted.trim(), options.inprefix, options.insuffix);
 
 		if (options.thousands.length) {
 			formatted = formatted.split(options.thousands);
@@ -203,4 +187,24 @@ function merge(base, obj) {
 	}
 
 	return ret;
+}
+
+function strip(text, left, right) {
+	return strip_right(strip_left(text, left), right);
+}
+
+function strip_left(text, left) {
+	if (left.length && text.substr(0, left.length) === left) {
+		return text.substr(left.length);
+	}
+
+	return text;
+}
+
+function strip_right(text, right) {
+	if (right.length && text.substr(text.length - right.length) === right) {
+		return text.substr(0, text.length - right.length);
+	}
+
+	return text;
 }
