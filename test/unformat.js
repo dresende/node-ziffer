@@ -18,6 +18,8 @@ describe(".unformat()", () => {
 	it("Should detect thousands separator", () => {
 		ziffer({ thousands: ".." }).unformat("123..456..789..123").should.equal(123456789123);
 		ziffer({ thousands: "" }).unformat("123456789123").should.equal(123456789123);
+
+		ziffer({ thousands: "," }).unformat("123,456,789").should.equal(123456.789);
 	});
 
 	it("Should detect decimals and round", () => {

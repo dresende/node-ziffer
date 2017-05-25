@@ -138,8 +138,12 @@ class Formatter {
 		strip_right(options.insuffix);
 
 		if (options.thousands.length) {
-			while (formatted.indexOf(options.thousands) >= 0) {
-				formatted = formatted.replace(options.thousands, "");
+			formatted = formatted.split(options.thousands);
+
+			if (options.radix.length && options.radix == options.thousands) {
+				formatted = formatted.slice(0, formatted.length - 1).join("") + options.radix + formatted[formatted.length - 1];
+			} else {
+				formatted = formatted.join("");
 			}
 		}
 
