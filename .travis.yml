@@ -4,3 +4,5 @@ node_js:
 matrix:
   fast_finish: true
 script: "npm test"
+env:
+  CODECLIMATE_REPO_TOKEN: e0d0a2ca945efa3227f5f74251ec8cf67c3e95a6d05c77ac063f3ad63fc7eba9
