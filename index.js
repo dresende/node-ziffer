@@ -53,7 +53,7 @@ class Formatter {
 		let formatted = "";
 		let integer, decimal;
 
-		if (options.decimals != -1) {
+		if (options.decimals !== -1) {
 			number               = number.toFixed(options.decimals);
 			[ integer, decimal ] = number.split(".");
 		} else {
