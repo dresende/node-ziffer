@@ -14,7 +14,7 @@ class Formatter {
 			outprefix : "",
 			outsuffix : "",
 			negative  : "left",
-			blocksize : 3,
+			group     : 3,
 			decimals  : -1
 		}, options);
 	}
@@ -26,7 +26,7 @@ class Formatter {
 	- <outprefix>
 	- (<negative>)?
 	- <inprefix>
-	- (<number:blocksize><thousands>)*<number:blocksize>
+	- (<number:group><thousands>)*<number:group>
 	- (<radix><number:decimals>)?
 	- <insuffix>
 	- (<negative>)?
@@ -37,7 +37,7 @@ class Formatter {
 	   - if option negative is paren, add open parenthesis
 	   - else if option negative is left, add minus
 	3. option inprefix string
-	4. for every integer part in option blocksize blocks, add option thousands string separator
+	4. for every integer part in option group blocks, add option thousands string separator
 	5. if decimals add option radix string and decimals
 	6. option insuffix string
 	7. if number is negative and:
@@ -58,13 +58,13 @@ class Formatter {
 		let decimal   = ("" + Math.abs(number)).substr(integer.length + 1);
 		let formatted = "";
 
-		if (options.thousands.length) {
-			for (let i = integer.length - 1; i >= 0; i -= options.blocksize) {
-				let from = i - options.blocksize + 1;
+		if (options.thousands.length && options.group > 0) {
+			for (let i = integer.length - 1; i >= 0; i -= options.group) {
+				let from = i - options.group + 1;
 
 				formatted = (from >= 0
-				          ? integer.substr(from, options.blocksize)
-				          : integer.substr(0, options.blocksize + from))
+				          ? integer.substr(from, options.group)
+				          : integer.substr(0, options.group + from))
 				          + formatted;
 
 				if (from > 0 && options.thousands.length) {
