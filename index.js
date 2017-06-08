@@ -48,6 +48,8 @@ class Formatter {
 
 	 **/
 	format(number = 0, additional_options = {}) {
+		if (isNaN(+number) || !isFinite(+number)) return "-";
+
 		let options  = merge(this.options, additional_options);
 		let negative = (number < 0);
 		let integer, decimal;
