@@ -6,6 +6,8 @@ describe("Edge Cases", () => {
 		const n = ziffer();
 
 		n.format(NaN).should.equal("-");
+		n.format("what").should.equal("-");
+		n.format("3.01").should.equal("3,01");
 	});
 
 	it("Should return '-' for infinite numbers", () => {
