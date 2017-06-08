@@ -205,11 +205,14 @@ function merge(base, obj) {
 
 	for (let k in base) {
 		if (typeof obj[k] !== "undefined") continue;
+		if (!base.hasOwnProperty(k)) continue;
 
 		ret[k] = base[k];
 	}
 
 	for (let k in obj) {
+		if (!obj.hasOwnProperty(k)) continue;
+
 		ret[k] = obj[k];
 	}
 
