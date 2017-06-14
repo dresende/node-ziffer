@@ -17,4 +17,14 @@ describe("Edge Cases", () => {
 		n.format(Infinity).should.equal("-");
 		n.format(-Infinity).should.equal("-");
 	});
+
+	it("Should work properly with decimal numbers", () => {
+		const n = ziffer();
+
+		n.format(1.23).should.equal("1,23");
+		n.format(0.123).should.equal("0,123");
+		n.format(0.000123).should.equal("0,000123");
+		n.format(1.23e-7).should.equal("0,000000123");
+		n.format(1.23e-10).should.equal("0,000000000123");
+	});
 });

@@ -58,8 +58,13 @@ class Formatter {
 			number               = Math.abs(number).toFixed(options.decimals);
 			[ integer, decimal ] = number.split(".");
 		} else {
-			integer = "" + Math.floor(Math.abs(number));
-			decimal = ("" + Math.abs(number)).substr(integer.length + 1);
+			if (number.toString().indexOf("e") > 0) {
+				number               = Math.abs(number).toFixed(20).replace(/0+$/, "");
+				[ integer, decimal ] = number.split(".");
+			} else {
+				integer = "" + Math.floor(Math.abs(number));
+				decimal = ("" + Math.abs(number)).substr(integer.length + 1);
+			}
 		}
 
 		let formatted = this.__format_decimals(options, integer, decimal);
