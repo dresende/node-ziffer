@@ -55,7 +55,13 @@ class Formatter {
 		let integer, decimal;
 
 		if (options.decimals !== -1) {
-			number               = Math.abs(number).toFixed(options.decimals);
+			// precision rounding
+			let tmp = precision_round(Math.abs(number), options.decimals);
+			// unprecision rounding
+			number  = Math.abs(number).toFixed(options.decimals);
+			// merge precision rounding with possible 0's at the right end
+			number  = tmp + number.substr(tmp.length);
+
 			[ integer, decimal ] = number.split(".");
 		} else {
 			if (number.toString().indexOf("e") > 0) {
@@ -242,4 +248,11 @@ function strip_right(text, right) {
 	}
 
 	return text;
+}
+
+function precision_round(number, decimals) {
+	let p1 = Math.pow(10, decimals + 1);
+	let p2 = Math.pow(10, decimals);
+
+	return "" + Math.round( Math.round( number * p1 ) / (p1 / p2) ) / p2;
 }
