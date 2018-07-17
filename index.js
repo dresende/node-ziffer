@@ -146,15 +146,7 @@ class Formatter {
 	}
 
 	__unformat_decimals(options, formatted) {
-		if (options.thousands.length) {
-			formatted = formatted.split(options.thousands);
-
-			if (options.decimal.length && options.decimal === options.thousands && options.decimals !== 0) {
-				formatted = formatted.slice(0, formatted.length - 1).join("") + options.decimal + formatted[formatted.length - 1];
-			} else {
-				formatted = formatted.join("");
-			}
-		}
+		formatted = this.__unformat_decimal_thousands(options, formatted);
 
 		if (options.decimal.length) {
 			formatted = formatted.replace(options.decimal, ".");
@@ -162,6 +154,20 @@ class Formatter {
 
 		if (options.digits && options.digits.length === 10) {
 			formatted = formatted.replace(new RegExp("[" + options.digits + "]", "g"), (c) => options.digits.indexOf(c));
+		}
+
+		return formatted;
+	}
+
+	__unformat_decimal_thousands(options, formatted) {
+		if (options.thousands.length) {
+			formatted = formatted.split(options.thousands);
+
+			if (options.decimal.length && options.decimal === options.thousands && options.decimals !== 0) {
+				return formatted.slice(0, formatted.length - 1).join("") + options.decimal + formatted[formatted.length - 1];
+			}
+
+			return formatted.join("");
 		}
 
 		return formatted;
