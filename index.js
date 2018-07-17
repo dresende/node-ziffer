@@ -50,30 +50,10 @@ class Formatter {
 	format(number = 0, additional_options = {}) {
 		if (isNaN(+number) || !isFinite(+number)) return "-";
 
-		let options  = merge(this.options, additional_options);
-		let negative = (number < 0);
-		let integer, decimal;
-
-		if (options.decimals !== -1) {
-			// precision rounding
-			let tmp = precision_round(Math.abs(number), options.decimals);
-			// unprecision rounding
-			number  = Math.abs(number).toFixed(options.decimals);
-			// merge precision rounding with possible 0's at the right end
-			number  = tmp + number.substr(tmp.length);
-
-			[ integer, decimal ] = number.split(".");
-		} else {
-			if (number.toString().indexOf("e") > 0) {
-				number               = Math.abs(number).toFixed(20).replace(/0+$/, "");
-				[ integer, decimal ] = number.split(".");
-			} else {
-				integer = "" + Math.floor(Math.abs(number));
-				decimal = ("" + Math.abs(number)).substr(integer.length + 1);
-			}
-		}
-
-		let formatted = this.__format_decimals(options, integer, decimal);
+		let options              = merge(this.options, additional_options);
+		let [ integer, decimal ] = this.__format_split(options, number);
+		let formatted            = this.__format_decimals(options, integer, decimal);
+		let negative             = (number < 0);
 
 		formatted = options.inprefix + formatted + options.insuffix;
 
@@ -167,6 +147,28 @@ class Formatter {
 		}
 
 		return formatted;
+	}
+
+	__format_split(options, number) {
+		if (options.decimals !== -1) {
+			// precision rounding
+			let tmp = precision_round(Math.abs(number), options.decimals);
+			// unprecision rounding
+			number  = Math.abs(number).toFixed(options.decimals);
+			// merge precision rounding with possible 0's at the right end
+			number  = tmp + number.substr(tmp.length);
+
+			return number.split(".");
+		}
+
+		if (number.toString().indexOf("e") > 0) {
+			return Math.abs(number).toFixed(20).replace(/0+$/, "").split(".");
+		}
+
+		let integer = "" + Math.floor(Math.abs(number));
+		let decimal = ("" + Math.abs(number)).substr(integer.length + 1);
+
+		return [ integer, decimal ];
 	}
 
 	__format_decimals(options, integer, decimal) {
