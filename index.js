@@ -128,18 +128,14 @@ class Formatter {
 	}
 
 	__unformat_negative(options, formatted) {
-		if (options.negative === "paren") {
-			if (formatted[0] === "(" && formatted[formatted.length - 1] === ")") {
-				return [ formatted.substr(1, formatted.length - 2), true ];
-			}
-		} else if (options.negative === "right") {
-			if (formatted[formatted.length - 1] === "-") {
-				return [ formatted.substr(0, formatted.length - 1), true ];
-			}
-		} else {
-			if (formatted[0] === "-") {
-				return [ formatted.substr(1), true ];
-			}
+		if (options.negative === "paren" && formatted[0] === "(" && formatted[formatted.length - 1] === ")") {
+			return [ formatted.substr(1, formatted.length - 2), true ];
+		}
+		if (options.negative === "right" && formatted[formatted.length - 1] === "-") {
+			return [ formatted.substr(0, formatted.length - 1), true ];
+		}
+		if (formatted[0] === "-") {
+			return [ formatted.substr(1), true ];
 		}
 
 		return [ formatted, false ];
