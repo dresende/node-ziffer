@@ -170,8 +170,16 @@ class Formatter {
 	}
 
 	__format_decimals(options, integer, decimal) {
-		let formatted = "";
+		let formatted = this.__format_decimal_thousands(options, integer);
 
+		if (options.decimals !== 0 && decimal.length) {
+			formatted += options.decimal + decimal;
+		}
+
+		return formatted;
+	}
+
+	__format_decimal_thousands(options, integer) {
 		if (options.thousands.length && ((Array.isArray(options.group) && options.group.length) || options.group > 0)) {
 			if (!Array.isArray(options.group)) {
 				options.group = [ options.group ];
@@ -180,18 +188,16 @@ class Formatter {
 			options.g    = 0;
 			options.from = integer.length - options.group[options.g];
 
+			let formatted = "";
+
 			for (let i = integer.length - 1; i >= 0; i -= options.group[options.g]) {
 				formatted = this.__format_decimals_group(options, integer, formatted) + formatted;
 			}
-		} else  {
-			formatted = integer;
+
+			return formatted;
 		}
 
-		if (options.decimals !== 0 && decimal.length) {
-			formatted += options.decimal + decimal;
-		}
-
-		return formatted;
+		return integer;
 	}
 
 	__format_decimals_group(options, integer) {
