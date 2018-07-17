@@ -53,21 +53,8 @@ class Formatter {
 		let options              = merge(this.options, additional_options);
 		let [ integer, decimal ] = this.__format_split(options, number);
 		let formatted            = this.__format_decimals(options, integer, decimal);
-		let negative             = (number < 0);
 
-		formatted = options.inprefix + formatted + options.insuffix;
-
-		if (negative) {
-			if (options.negative === "paren") {
-				formatted = "(" + formatted + ")";
-			} else if (options.negative === "right") {
-				formatted += "-";
-			} else {
-				formatted = "-" + formatted;
-			}
-		}
-
-		formatted = options.outprefix + formatted + options.outsuffix;
+		formatted = this.__format_negative(options, number, formatted);
 
 		if (options.digits && options.digits.length === 10) {
 			formatted = formatted.replace(/\d/g, (d) => options.digits[d]);
@@ -169,6 +156,24 @@ class Formatter {
 		let decimal = ("" + Math.abs(number)).substr(integer.length + 1);
 
 		return [ integer, decimal ];
+	}
+
+	__format_negative(options, number, formatted) {
+		let negative = (number < 0);
+
+		formatted = options.inprefix + formatted + options.insuffix;
+
+		if (negative) {
+			if (options.negative === "paren") {
+				formatted = "(" + formatted + ")";
+			} else if (options.negative === "right") {
+				formatted += "-";
+			} else {
+				formatted = "-" + formatted;
+			}
+		}
+
+		return options.outprefix + formatted + options.outsuffix;
 	}
 
 	__format_decimals(options, integer, decimal) {
