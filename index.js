@@ -212,20 +212,17 @@ class Formatter {
 }
 
 function merge(base, obj) {
-	var ret = {};
+	let ret = {};
 
 	for (let k in base) {
-		if (typeof obj[k] !== "undefined") continue;
-		if (!base.hasOwnProperty(k)) continue;
-
-		ret[k] = base[k];
+		if (base.hasOwnProperty(k) && typeof obj[k] === "undefined") {
+			ret[k] = base[k];
+		}
 	}
 
-	for (let k in obj) {
-		if (!obj.hasOwnProperty(k)) continue;
-
+	Object.keys(obj).map((k) => {
 		ret[k] = obj[k];
-	}
+	});
 
 	return ret;
 }
