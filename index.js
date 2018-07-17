@@ -194,13 +194,13 @@ class Formatter {
 		let formatted = "";
 
 		for (let i = integer.length - 1; i >= 0; i -= options.group[options.g]) {
-			formatted = this.__format_decimals_group(options, integer, formatted) + formatted;
+			formatted = this.__format_decimal_group(options, integer, formatted) + formatted;
 		}
 
 		return formatted;
 	}
 
-	__format_decimals_group(options, integer) {
+	__format_decimal_group(options, integer) {
 		let group = (options.from >= 0
 		          ? integer.substr(options.from, options.group[options.g])
 		          : integer.substr(0, options.group[options.g] + options.from));
