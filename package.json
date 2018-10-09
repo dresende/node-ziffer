@@ -1,6 +1,6 @@
 {
 	"name"        : "ziffer",
-	"version"     : "2.1.1",
+	"version"     : "2.2.0",
 	"description" : "NodeJS simple number formatter",
 	"main"        : "index.js",
 	"author"      : "Diogo Resende <dresende@thinkdigital.pt>",

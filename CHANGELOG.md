@@ -1,3 +1,8 @@
+## 2.2.0 - 09 Oct 2018
+
+- bugs:
+  - fixes nasty little bug on precision rounding (example: 9,945 to 1 decimal would throw instead of returning 9,9)
+
 ## 2.1.1 - 22 Mar 2018
 
 - bugs:
