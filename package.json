@@ -14,7 +14,7 @@
 		"url"  : "https://github.com/dresende/node-ziffer"
 	},
 	"devDependencies" : {
-		"mocha"  : "5.0.x",
+		"mocha"  : "5.2.x",
 		"should" : "13.2.x"
 	}
 }
