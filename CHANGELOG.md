@@ -1,3 +1,9 @@
+## 2.2.2 - 24 Jul 2019
+
+- works around toFixed() known bug related to precision rounding
+- deps:
+  - mocha@6.2.x
+
 ## 2.2.1 - 09 May 2019
 
 - deps:
