@@ -46,6 +46,7 @@ When creating a ziffer formatter you can pass any of these options in an optiona
 - `outsuffix`: string suffix (default: none)
 - `negative`: how negative values are expressed - "left", "right" or parenthesis (default: left)
 - `group`: size of digit groups separated by `thousands` (default: 3)
+- `group_except`: exception for digit grouping (default: 4)
 - `decimals`: number of decimals in fraction to round to (default: no rounding)
 - `digits`: a string with 10 digits from 0 to 9 (default: empty, which means 0-9)
 
