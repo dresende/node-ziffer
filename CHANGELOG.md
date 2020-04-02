@@ -1,3 +1,9 @@
+## 2.3.0 - 02 Apr 2020
+
+- add group_excet option (default: 4) to cope with BIPM digit group exception
+- deps:
+	- mocha@7.1.x
+
 ## 2.2.2 - 24 Jul 2019
 
 - works around toFixed() known bug related to precision rounding
