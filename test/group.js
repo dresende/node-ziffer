@@ -22,4 +22,12 @@ describe("Option: group", () => {
 		ziffer.format(123456789, { group: [ 3, 2 ] }).should.equal("12 34 56 789");
 		ziffer.format(123456789, { group: [ 2, 1, 3 ] }).should.equal("123 456 7 89");
 	});
+
+	it("Should not group when group_except rule is hit", () => {
+		ziffer.format(1234, { group_except: 4 }).should.equal("1234"); // default
+		ziffer.format(12345, { group_except: 5 }).should.equal("12345");
+		ziffer.format(12345).should.equal("12 345");
+		ziffer.format(123456, { group_except: [ 4, 6 ] }).should.equal("123456");
+		ziffer.format(1234567, { group_except: [ 4, 6 ] }).should.equal("1 234 567");
+	});
 });

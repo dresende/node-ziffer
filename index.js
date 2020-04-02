@@ -7,16 +7,17 @@ module.exports = (options) => {
 class Formatter {
 	constructor(options = {}) {
 		this.options = merge({
-			decimal   : ",",
-			thousands : " ",
-			inprefix  : "",
-			insuffix  : "",
-			outprefix : "",
-			outsuffix : "",
-			negative  : "left",
-			group     : 3,
-			decimals  : -1,
-			digits    : null
+			decimal      : ",",
+			thousands    : " ",
+			inprefix     : "",
+			insuffix     : "",
+			outprefix    : "",
+			outsuffix    : "",
+			negative     : "left",
+			group        : 3,
+			group_except : 4,
+			decimals     : -1,
+			digits       : null
 		}, options);
 	}
 
@@ -200,8 +201,14 @@ class Formatter {
 
 		let formatted = "";
 
-		for (let i = integer.length - 1; i >= 0; i -= options.group[options.g]) {
-			formatted = this.__format_decimal_group(options, integer, formatted) + formatted;
+		if (Array.isArray(options.group_except) && options.group_except.includes(integer.length)) {
+			formatted = integer;
+		} else if (options.group_except > 0 && integer.length == options.group_except) {
+			formatted = integer;
+		} else {
+			for (let i = integer.length - 1; i >= 0; i -= options.group[options.g]) {
+				formatted = this.__format_decimal_group(options, integer, formatted) + formatted;
+			}
 		}
 
 		return formatted;
