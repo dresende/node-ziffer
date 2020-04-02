@@ -3,7 +3,6 @@
 [![Build Status](https://secure.travis-ci.org/dresende/node-ziffer.png?branch=master)](http://travis-ci.org/dresende/node-ziffer)
 [![Code Climate](https://codeclimate.com/github/dresende/node-ziffer/badges/gpa.svg)](https://codeclimate.com/github/dresende/node-ziffer)
 [![](https://badge.fury.io/js/ziffer.svg)](https://npmjs.org/package/ziffer)
-[![Dependency Status](https://gemnasium.com/badges/github.com/dresende/node-ziffer.svg)](https://gemnasium.com/github.com/dresende/node-ziffer)
 
 NodeJS simple number formatter.
 
