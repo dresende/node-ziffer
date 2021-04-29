@@ -1,0 +1,13 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "08:00"
+    timezone: Europe/Lisbon
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: mocha
+    versions:
+    - 8.2.1
