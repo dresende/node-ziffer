@@ -1,3 +1,14 @@
+## 2.5.0 - 02 Apr 2020
+
+- refactors decimal thousands format code (reduce complexity)
+- deps:
+  - mocha@9.2.x
+
+## 2.4.0 - 27 Oct 2021
+
+- deps:
+  - mocha@9.1.x
+
 ## 2.3.0 - 02 Apr 2020
 
 - add group_excet option (default: 4) to cope with BIPM digit group exception
