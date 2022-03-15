@@ -1,4 +1,8 @@
-## 2.5.0 - 02 Apr 2020
+## 2.5.1 - 15 Mar 2022
+
+- fixes shrinkwrap
+
+## 2.5.0 - 15 Mar 2022
 
 - refactors decimal thousands format code (reduce complexity)
 - deps:
