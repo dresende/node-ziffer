@@ -192,6 +192,11 @@ class Formatter {
 	}
 
 	__format_decimal_thousands(options, integer) {
+		if ((Array.isArray(options.group_except) && options.group_except.includes(integer.length))
+		|| (options.group_except > 0 && integer.length == options.group_except)) {
+			return integer;
+		}
+
 		if (!Array.isArray(options.group)) {
 			options.group = [ options.group ];
 		}
@@ -201,14 +206,8 @@ class Formatter {
 
 		let formatted = "";
 
-		if (Array.isArray(options.group_except) && options.group_except.includes(integer.length)) {
-			formatted = integer;
-		} else if (options.group_except > 0 && integer.length == options.group_except) {
-			formatted = integer;
-		} else {
-			for (let i = integer.length - 1; i >= 0; i -= options.group[options.g]) {
-				formatted = this.__format_decimal_group(options, integer, formatted) + formatted;
-			}
+		for (let i = integer.length - 1; i >= 0; i -= options.group[options.g]) {
+			formatted = this.__format_decimal_group(options, integer, formatted) + formatted;
 		}
 
 		return formatted;
