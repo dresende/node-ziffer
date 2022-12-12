@@ -1,12 +1,12 @@
 {
 	"name": "ziffer",
-	"version": "2.5.1",
+	"version": "3.0.0",
 	"lockfileVersion": 2,
 	"requires": true,
 	"packages": {
 		"": {
 			"name": "ziffer",
-			"version": "2.5.1",
+			"version": "3.0.0",
 			"license": "MIT",
 			"devDependencies": {
 				"mocha": "10.2.x",

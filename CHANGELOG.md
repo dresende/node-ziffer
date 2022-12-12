@@ -1,3 +1,12 @@
+## 3.0.0 - 12 Dec 2022
+
+- ci:
+  - adds automatic release based on changelog
+  - removes node 10 and 12 support
+  - adds node 16 and 18 to workflow
+- deps:
+  - mocha@10.2.x
+
 ## 2.5.1 - 15 Mar 2022
 
 - fixes shrinkwrap
