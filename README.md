@@ -1,6 +1,6 @@
 ## Ziffer
 
-[![Build Status](https://secure.travis-ci.org/dresende/node-ziffer.png?branch=master)](http://travis-ci.org/dresende/node-ziffer)
+[![Build](https://github.com/dresende/node-ziffer/workflows/Node.js%20CI/badge.svg)][https://github.com/dresende/node-ziffer/actions]
 [![Code Climate](https://codeclimate.com/github/dresende/node-ziffer/badges/gpa.svg)](https://codeclimate.com/github/dresende/node-ziffer)
 [![](https://badge.fury.io/js/ziffer.svg)](https://npmjs.org/package/ziffer)
 
