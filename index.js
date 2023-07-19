@@ -269,7 +269,7 @@ function strip_right(text, right) {
 }
 
 function precision_round(number, decimals) {
-	if (decimals == 0) return "" + Math.round(number);
+	if (decimals === 0) return "" + Math.round(number);
 
 	let p1  = Math.pow(10, decimals + 1);
 	let p2  = Math.pow(10, decimals);
